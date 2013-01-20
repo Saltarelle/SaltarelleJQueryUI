@@ -1,0 +1,3 @@
+[submodule "api.jqueryui.com"]
+	path = api.jqueryui.com
+	url = git://github.com/jquery/api.jqueryui.com.git
