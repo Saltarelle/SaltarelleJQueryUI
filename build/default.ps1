@@ -65,6 +65,7 @@ Task Build-NuGetPackages -Depends Determine-Version, Build-Library {
 	</metadata>
 	<files>
 		<file src="$baseDir\License.txt" target=""/>
+		<file src="$baseDir\history.txt" target=""/>
 		<file src="$baseDir\jQuery.UI\bin\Saltarelle.jQuery.UI.dll" target="lib"/>
 		<file src="$baseDir\jQuery.UI\bin\Saltarelle.jQuery.UI.xml" target="lib"/>
 		<file src="$baseDir\jQuery.UI\jquery-ui*.js" target=""/>
