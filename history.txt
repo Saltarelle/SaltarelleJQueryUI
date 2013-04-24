@@ -1,3 +1,4 @@
+1.9.3
 Fixed event names (thanks to Pete Davis)
 
 1.9.2
