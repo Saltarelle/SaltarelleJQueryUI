@@ -180,14 +180,13 @@ namespace {5} {{
                 methodsContent.AppendLine("        /// " + Utils.FormatXmlComment(@event.Description.Replace("<entryname />", entry.Name)));
                 methodsContent.AppendLine("        /// </summary>");
                 methodsContent.AppendLine("        public event " + eventType + " On" + Utils.PascalCase(@event.Name) + " {");
-                methodsContent.AppendLine("            [InlineCode(\"{this}.bind('" + @event.Name + "', {value})\")]");
+                methodsContent.AppendLine("            [InlineCode(\"{this}.bind('" + entry.EventPrefix + @event.Name.ToLower() + "', {value})\")]");
                 methodsContent.AppendLine("            add {");
                 methodsContent.AppendLine("            }");
-                methodsContent.AppendLine("            [InlineCode(\"{this}.unbind('" + @event.Name + "', {value})\")]");
+                methodsContent.AppendLine("            [InlineCode(\"{this}.unbind('" + entry.EventPrefix + @event.Name.ToLower() + "', {value})\")]");
                 methodsContent.AppendLine("            remove {");
                 methodsContent.AppendLine("            }");
                 methodsContent.AppendLine("        }");
-            }
 
             string formatedContent
                 = string.Format(content

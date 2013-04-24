@@ -99,7 +99,14 @@ namespace Saltarelle.JQueryUI.Generator {
 
             entry.Name = GetAttributeStringValue(xmlEntry, "name");
             entry.Type = GetAttributeStringValue(xmlEntry, "type");
-
+            
+            // 'name' is the default prefix. Check to see if it's overridden.
+            entry.EventPrefix = GetAttributeStringValue(xmlEntry, "event-prefix");
+            if (string.IsNullOrEmpty(entry.EventPrefix))
+            {
+                entry.EventPrefix = entry.Name;
+            }
+            
 			entry.Description = GetNodeInnerXml(xmlEntry, "desc", entry.Name);
             entry.LongDescription = GetNodeInnerXml(xmlEntry, "longdesc", entry.Name);
             entry.Created = GetNodeInnerXml(xmlEntry, "created", entry.Name);
