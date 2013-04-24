@@ -34,6 +34,12 @@ namespace Saltarelle.JQueryUI.Generator.Model {
             set;
         }
 
+        public string EventPrefix
+        {
+            get;
+            set;
+        }
+
         public IList<Event> Events {
             get;
             set;
