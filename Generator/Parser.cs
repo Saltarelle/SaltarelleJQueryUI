@@ -102,8 +102,7 @@ namespace Saltarelle.JQueryUI.Generator {
             
             // 'name' is the default prefix. Check to see if it's overridden.
             entry.EventPrefix = GetAttributeStringValue(xmlEntry, "event-prefix");
-            if (string.IsNullOrEmpty(entry.EventPrefix))
-            {
+            if (string.IsNullOrEmpty(entry.EventPrefix)) {
                 entry.EventPrefix = entry.Name;
             }
             

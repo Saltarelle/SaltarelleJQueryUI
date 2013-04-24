@@ -34,8 +34,7 @@ namespace Saltarelle.JQueryUI.Generator.Model {
             set;
         }
 
-        public string EventPrefix
-        {
+        public string EventPrefix {
             get;
             set;
         }

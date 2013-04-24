@@ -187,6 +187,7 @@ namespace {5} {{
                 methodsContent.AppendLine("            remove {");
                 methodsContent.AppendLine("            }");
                 methodsContent.AppendLine("        }");
+            }
 
             string formatedContent
                 = string.Format(content
