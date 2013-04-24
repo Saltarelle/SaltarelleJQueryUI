@@ -1,3 +1,5 @@
+Fixed event names (thanks to Pete Davis)
+
 1.9.2
 Fixed issues with @-signs in the metadata.
 
