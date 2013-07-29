@@ -36,7 +36,7 @@ Task Generate-Source -Depends Determine-Version {
 	Generate-VersionFile -Path "$baseDir\jQuery.UI\Properties\Version.cs" -Version $script:Version
 }
 
-Task Build-Library -Depends Clean, Generate-Source {
+Task Build-Library -Depends Clean {
 	Exec { msbuild "$baseDir\jQuery.UI.sln" /verbosity:minimal /p:"Configuration=$configuration" }
 }
 
