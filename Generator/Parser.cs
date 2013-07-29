@@ -24,24 +24,24 @@ using System.Linq;
 using Saltarelle.JQueryUI.Generator.Model;
 
 namespace Saltarelle.JQueryUI.Generator {
-    /// <summary>
-    /// jQueryUI API documentation parser.
-    /// </summary>
-    public class Parser {
-        private string SourcePath;
-        private TextWriter Messages;
+	/// <summary>
+	/// jQueryUI API documentation parser.
+	/// </summary>
+	public class Parser {
+		private string SourcePath;
+		private TextWriter Messages;
 
-        /// <summary>
-        /// Creates a parser of jQueryUI API documentation.
-        /// </summary>
-        /// <param name="sourcePath">The path to the jQueryUI API documentation.</param>
-        /// <param name="messageStream">A message stream.</param>
-        public Parser(string sourcePath, TextWriter messageStream = null) {
-            Debug.Assert(!string.IsNullOrEmpty(sourcePath), "The path to the jQueryUI API documentation is not specified.");
+		/// <summary>
+		/// Creates a parser of jQueryUI API documentation.
+		/// </summary>
+		/// <param name="sourcePath">The path to the jQueryUI API documentation.</param>
+		/// <param name="messageStream">A message stream.</param>
+		public Parser(string sourcePath, TextWriter messageStream = null) {
+			Debug.Assert(!string.IsNullOrEmpty(sourcePath), "The path to the jQueryUI API documentation is not specified.");
 
-            SourcePath = sourcePath;
-            Messages = messageStream ?? TextWriter.Null;
-        }
+			SourcePath = sourcePath;
+			Messages = messageStream ?? TextWriter.Null;
+		}
 
 		private void ResolveIncludes(XmlDocument doc, string basePath) {
 			var nsm = new XmlNamespaceManager(new NameTable());
@@ -58,71 +58,67 @@ namespace Saltarelle.JQueryUI.Generator {
 			}
 		}
 
-        private IEnumerable<Entry> ParseFile(string file) {
-            Messages.Write("Parsing " + file + " ...");
+		private IEnumerable<Entry> ParseFile(string file) {
+			Messages.Write("Parsing " + file + " ...");
 
-            XmlDocument document = new XmlDocument();
+			XmlDocument document = new XmlDocument();
 
-            try {
-                document.Load(file);
-            } catch {
-                Messages.WriteLine("Failed");
-                yield break;
-            }
+			document.Load(file);
 
 			ResolveIncludes(document, Path.GetDirectoryName(file));
 
-            foreach (XmlNode xmlEntry in document.SelectNodes(".//entry")) {
+			foreach (XmlNode xmlEntry in document.SelectNodes(".//entry")) {
 				foreach (var e in ParseEntry(xmlEntry))
 					yield return e;
-	            Messages.WriteLine("Ok");
+				Messages.WriteLine("Ok");
 			}
-        }
-        
-        /// <summary>
-        /// Parses all XML files found in the source directory including sub-directories
-        /// </summary>
-        /// <returns>List with jQueryUI entries</returns>
-        public IList<Entry> Parse() {
-            DirectoryInfo source = new DirectoryInfo(SourcePath);
-            FileInfo[] files = source.GetFiles("*.xml");
+		}
 
-	        return files.SelectMany(file => ParseFile(file.FullName)).Where(entry => entry != null).ToList();
-        }
+		/// <summary>
+		/// Parses all XML files found in the source directory including sub-directories
+		/// </summary>
+		/// <returns>List with jQueryUI entries</returns>
+		public IList<Entry> Parse() {
+			DirectoryInfo source = new DirectoryInfo(SourcePath);
+			FileInfo[] files = source.GetFiles("*.xml");
 
-        private IEnumerable<Entry> ParseEntry(XmlNode xmlEntry) {
-            if (xmlEntry == null) {
-                yield break;
-            }
+			return files.SelectMany(file => ParseFile(file.FullName)).Where(entry => entry != null).ToList();
+		}
 
-            Entry entry = new Entry();
+		private IEnumerable<Entry> ParseEntry(XmlNode xmlEntry) {
+			if (xmlEntry == null) {
+				yield break;
+			}
 
-            entry.Name = GetAttributeStringValue(xmlEntry, "name");
-            entry.Type = GetAttributeStringValue(xmlEntry, "type");
-            
-            // 'name' is the default prefix. Check to see if it's overridden.
-            entry.EventPrefix = GetAttributeStringValue(xmlEntry, "event-prefix");
-            if (string.IsNullOrEmpty(entry.EventPrefix)) {
-                entry.EventPrefix = entry.Name;
-            }
-            
+			Entry entry = new Entry();
+
+			entry.Name = GetAttributeStringValue(xmlEntry, "name");
+			entry.Type = GetAttributeStringValue(xmlEntry, "type");
+
+			// 'name' is the default prefix. Check to see if it's overridden.
+			entry.EventPrefix = GetAttributeStringValue(xmlEntry, "event-prefix");
+			if (string.IsNullOrEmpty(entry.EventPrefix)) {
+				entry.EventPrefix = entry.Name;
+			}
+
 			entry.Description = GetNodeInnerXml(xmlEntry, "desc", entry.Name);
-            entry.LongDescription = GetNodeInnerXml(xmlEntry, "longdesc", entry.Name);
-            entry.Created = GetNodeInnerXml(xmlEntry, "created", entry.Name);
+			entry.LongDescription = GetNodeInnerXml(xmlEntry, "longdesc", entry.Name);
+			entry.Created = GetNodeInnerXml(xmlEntry, "created", entry.Name);
 
-            XmlNode xmlExample = xmlEntry.SelectSingleNode(".//example");
-            if (xmlExample != null) {
-                entry.Example = ParseExample(xmlExample);
-            }
+			XmlNode xmlExample = xmlEntry.SelectSingleNode(".//example");
+			if (xmlExample != null) {
+				entry.Example = ParseExample(xmlExample);
+			}
 
-            entry.Categories = ParseCategories(GetNodeList(xmlEntry, ".//category"));
-            entry.Events = ParseEvents(GetNodeList(xmlEntry, ".//events//event"), entry.Name);
-            entry.Methods = ParseMethods(GetNodeList(xmlEntry, ".//methods/*"), entry.Name);
+			entry.Categories = ParseCategories(GetNodeList(xmlEntry, ".//category"));
+			entry.Events = ParseEvents(GetNodeList(xmlEntry, ".//events//event"), entry.Name);
+			entry.Methods = ParseMethods(GetNodeList(xmlEntry, ".//methods/*"), entry.Name);
+			entry.Properties = ParseProperties(GetNodeList(xmlEntry, ".//signature/property"));
 
 			if (entry.Type == "effect") {
 				entry.Options = new[] { new Option { Name = "easing", Description = "The easing to use for the effect", Type = "string" } }
 				                .Concat(ParseArguments(GetNodeList(xmlEntry, "arguments/argument")).Select(a => new Option { Name = a.Name, Description = a.Description, Type = a.Type }))
-								.ToList();
+				                .ToList();
 			}
 			else if (entry.Type == "method") {
 				var signatures = GetNodeList(xmlEntry, "signature");
@@ -144,71 +140,71 @@ namespace Saltarelle.JQueryUI.Generator {
 				entry.Options = ParseOptions(GetNodeList(xmlEntry, ".//options//option"), entry.Name);
 			}
 
-            yield return entry;
-        }
+			yield return entry;
+		}
 
-        private IList<Option> ParseOptions(XmlNodeList xmlOptions, string placeholderNameValue) {
-            IList<Option> options = new List<Option>();
+		private IList<Option> ParseOptions(XmlNodeList xmlOptions, string placeholderNameValue) {
+			IList<Option> options = new List<Option>();
 
-            if (xmlOptions == null) {
-                return options;
-            }
+			if (xmlOptions == null) {
+				return options;
+			}
 
-            for (int i = 0; i < xmlOptions.Count; i++) {
-                XmlNode xmlOption = xmlOptions[i];
+			for (int i = 0; i < xmlOptions.Count; i++) {
+				XmlNode xmlOption = xmlOptions[i];
 
-                Option option = new Option();
-                option.Name = GetAttributeStringValue(xmlOption, "name");
-                option.Default = GetAttributeStringValue(xmlOption, "default");
-                option.Description = GetNodeInnerXml(xmlOption, "desc", placeholderNameValue);
+				Option option = new Option();
+				option.Name = GetAttributeStringValue(xmlOption, "name");
+				option.Default = GetAttributeStringValue(xmlOption, "default");
+				option.Description = GetNodeInnerXml(xmlOption, "desc", placeholderNameValue);
 
-                // Type appears not only as attribute but also as an XML node.
-                // see comment from jzaefferer: https://github.com/jquery/api.jqueryui.com/pull/1#issuecomment-6151386
-                option.Type = GetAttributeStringValue(xmlOption, "type");
-                if (string.IsNullOrEmpty(option.Type)) {
-                    XmlNodeList xmlTypes = GetNodeList(xmlOption, "type");
-                    if (xmlTypes != null) {
-                        option.Type = ParseTypes(xmlTypes);
-                    }
-                }
+				// Type appears not only as attribute but also as an XML node.
+				// see comment from jzaefferer: https://github.com/jquery/api.jqueryui.com/pull/1#issuecomment-6151386
+				option.Type = GetAttributeStringValue(xmlOption, "type");
+				if (string.IsNullOrEmpty(option.Type)) {
+					XmlNodeList xmlTypes = GetNodeList(xmlOption, "type");
+					if (xmlTypes != null) {
+						option.Type = ParseTypes(xmlTypes);
+					}
+				}
 
-                options.Add(option);
-            }
+				options.Add(option);
+			}
 
-            return options;
-        }
+			return options;
+		}
 
-        private IList<Event> ParseEvents(XmlNodeList xmlEvents, string placeholderNameValue) {
-            IList<Event> events = new List<Event>();
+		private IList<Event> ParseEvents(XmlNodeList xmlEvents, string placeholderNameValue) {
+			IList<Event> events = new List<Event>();
 
-            if (xmlEvents == null) {
-                return events;
-            }
+			if (xmlEvents == null) {
+				return events;
+			}
 
-            for (int i = 0; i < xmlEvents.Count; i++) {
-                XmlNode xmlEvent = xmlEvents[i];
+			for (int i = 0; i < xmlEvents.Count; i++) {
+				XmlNode xmlEvent = xmlEvents[i];
 
-                Event @event = new Event();
-                @event.Name = GetAttributeStringValue(xmlEvent, "name");
-                @event.Description = GetNodeInnerXml(xmlEvent, "desc", placeholderNameValue);
-                @event.Arguments = ParseArguments(GetNodeList(xmlEvent, "argument"));
+				Event evt = new Event();
+				evt.Name = GetAttributeStringValue(xmlEvent, "name");
+				evt.Description = GetNodeInnerXml(xmlEvent, "desc", placeholderNameValue);
+				evt.Arguments = ParseArguments(GetNodeList(xmlEvent, "argument"));
 
-                events.Add(@event);
-            }
+				events.Add(evt);
+			}
 
-            return events;
-        }
+			return events;
+		}
 
-        private IList<Method> ParseMethods(XmlNodeList xmlMethods, string placeholderNameValue) {
-            IList<Method> methods = new List<Method>();
+		private IList<Method> ParseMethods(XmlNodeList xmlMethods, string placeholderNameValue) {
+			IList<Method> methods = new List<Method>();
 
-            if (xmlMethods == null) {
-                return methods;
-            }
+			if (xmlMethods == null) {
+				return methods;
+			}
 
-            for (int i = 0; i < xmlMethods.Count; i++) {
-                XmlNode xmlMethod = xmlMethods[i];
-                if (xmlMethod.Name == "method") {
+			for (int i = 0; i < xmlMethods.Count; i++) {
+				XmlNode xmlMethod = xmlMethods[i];
+				if (xmlMethod.Name == "method") {
 					XmlNodeList signature = GetNodeList(xmlMethod, "signature");
 
 					string name = GetAttributeStringValue(xmlMethod, "name");
@@ -220,129 +216,129 @@ namespace Saltarelle.JQueryUI.Generator {
 							Arguments = ParseArguments(GetNodeList(n, "argument"))
 						});
 					}
-                }
-            }
+				}
+			}
 
-            return methods;
-        }
+			return methods;
+		}
 
-        private IList<Argument> ParseArguments(XmlNodeList xmlArguments) {
-            IList<Argument> arguments = new List<Argument>();
+		private IList<Argument> ParseArguments(XmlNodeList xmlArguments) {
+			IList<Argument> arguments = new List<Argument>();
 
-            if (xmlArguments == null) {
-                return arguments;
-            }
+			if (xmlArguments == null) {
+				return arguments;
+			}
 
-            for (int i = 0; i < xmlArguments.Count; i++) {
-                XmlNode xmlArgument = xmlArguments[i];
+			for (int i = 0; i < xmlArguments.Count; i++) {
+				XmlNode xmlArgument = xmlArguments[i];
 
-                Argument argument = new Argument();
-                argument.Name = GetAttributeStringValue(xmlArgument, "name");
+				Argument argument = new Argument();
+				argument.Name = GetAttributeStringValue(xmlArgument, "name");
 				var typeNodes = GetNodeList(xmlArgument, "type");
 				if (typeNodes.Count != 0)
 					argument.Type = string.Join(" or ", typeNodes.OfType<XmlNode>().Select(n => n.Attributes["name"].Value));
 				else
 					argument.Type = GetAttributeStringValue(xmlArgument, "type");
 					
-                argument.Optional = GetAttributeBoolValue(xmlArgument, "optional");
-                argument.Description = GetNodeInnerXml(xmlArgument, "desc", null);
-                argument.Properties = ParseProperties(GetNodeList(xmlArgument, "property"));
+				argument.Optional = GetAttributeBoolValue(xmlArgument, "optional");
+				argument.Description = GetNodeInnerXml(xmlArgument, "desc", null);
+				argument.Properties = ParseProperties(GetNodeList(xmlArgument, "property"));
 
-                arguments.Add(argument);
-            }
+				arguments.Add(argument);
+			}
 
-            return arguments;
-        }
+			return arguments;
+		}
 
-        private IList<Property> ParseProperties(XmlNodeList xmlProperties) {
-            IList<Property> properties = new List<Property>();
+		private IList<Property> ParseProperties(XmlNodeList xmlProperties) {
+			IList<Property> properties = new List<Property>();
 
-            if (xmlProperties == null) {
-                return properties;
-            }
+			if (xmlProperties == null) {
+				return properties;
+			}
 
-            for (int i = 0; i < xmlProperties.Count; i++) {
-                XmlNode xmlProperty = xmlProperties[i];
+			for (int i = 0; i < xmlProperties.Count; i++) {
+				XmlNode xmlProperty = xmlProperties[i];
 
-                Property property = new Property();
-                property.Name = GetAttributeStringValue(xmlProperty, "name");
-                property.Type = GetAttributeStringValue(xmlProperty, "type");
-                property.Description = GetNodeInnerXml(xmlProperty, "desc", null);
+				Property property = new Property();
+				property.Name = GetAttributeStringValue(xmlProperty, "name");
+				property.Type = GetAttributeStringValue(xmlProperty, "type");
+				property.Description = GetNodeInnerXml(xmlProperty, "desc", null);
 
-                properties.Add(property);
-            }
+				properties.Add(property);
+			}
 
-            return properties;
-        }
+			return properties;
+		}
 
-        private Example ParseExample(XmlNode xmlExample) {
-            if (xmlExample == null) {
-                return null;
-            }
+		private Example ParseExample(XmlNode xmlExample) {
+			if (xmlExample == null) {
+				return null;
+			}
 
-            Example example = new Example();
+			Example example = new Example();
 
-            example.Description = (xmlExample.SelectSingleNode("desc") != null)
-                                ? xmlExample.SelectSingleNode("desc").InnerXml
-                                : string.Empty;
+			example.Description = (xmlExample.SelectSingleNode("desc") != null)
+								? xmlExample.SelectSingleNode("desc").InnerXml
+								: string.Empty;
 
-            example.Code = (xmlExample.SelectSingleNode("code") != null)
-                         ? xmlExample.SelectSingleNode("code").InnerXml
-                         : string.Empty;
+			example.Code = (xmlExample.SelectSingleNode("code") != null)
+							? xmlExample.SelectSingleNode("code").InnerXml
+							: string.Empty;
 
-            example.Html = (xmlExample.SelectSingleNode("html") != null)
-                         ? xmlExample.SelectSingleNode("html").InnerXml
-                         : string.Empty;
+			example.Html = (xmlExample.SelectSingleNode("html") != null)
+							? xmlExample.SelectSingleNode("html").InnerXml
+							: string.Empty;
 
-            return example;
-        }
+			return example;
+		}
 
-        private string[] ParseCategories(XmlNodeList xmlCategories) {
+		private string[] ParseCategories(XmlNodeList xmlCategories) {
 			return xmlCategories.Cast<XmlNode>().Select(n => GetAttributeStringValue(n, "slug")).ToArray();
-        }
+		}
 
-        private string ParseTypes(XmlNodeList xmlTypes) {
-            Debug.Assert(xmlTypes != null);
+		private string ParseTypes(XmlNodeList xmlTypes) {
+			Debug.Assert(xmlTypes != null);
 
-            List<string> types = new List<string>();
+			List<string> types = new List<string>();
 
-            for (int i = 0; i < xmlTypes.Count; i++) {
-                XmlNode xmlType = xmlTypes[i];
-                types.Add(GetAttributeStringValue(xmlType, "name"));
-            }
+			for (int i = 0; i < xmlTypes.Count; i++) {
+				XmlNode xmlType = xmlTypes[i];
+				types.Add(GetAttributeStringValue(xmlType, "name"));
+			}
 
-            return string.Join(",", types);
-        }
+			return string.Join(",", types);
+		}
 
-        private string GetAttributeStringValue(XmlNode xmlNode, string attributeName) {
-            Debug.Assert(xmlNode != null, "XmlNode is null.");
-            Debug.Assert(!string.IsNullOrEmpty(attributeName), "Attribute name is not specified.");
+		private string GetAttributeStringValue(XmlNode xmlNode, string attributeName) {
+			Debug.Assert(xmlNode != null, "XmlNode is null.");
+			Debug.Assert(!string.IsNullOrEmpty(attributeName), "Attribute name is not specified.");
 
-            return (xmlNode.Attributes[attributeName] != null)
-                  ? xmlNode.Attributes[attributeName].Value
-                  : string.Empty;
-        }
+			return (xmlNode.Attributes[attributeName] != null)
+					? xmlNode.Attributes[attributeName].Value
+					: string.Empty;
+		}
 
-        private bool GetAttributeBoolValue(XmlNode xmlNode, string attributeName) {
-            Debug.Assert(xmlNode != null, "XmlNode is null.");
-            Debug.Assert(!string.IsNullOrEmpty(attributeName), "Attribute name is not specified.");
+		private bool GetAttributeBoolValue(XmlNode xmlNode, string attributeName) {
+			Debug.Assert(xmlNode != null, "XmlNode is null.");
+			Debug.Assert(!string.IsNullOrEmpty(attributeName), "Attribute name is not specified.");
 
-            string value = (xmlNode.Attributes[attributeName] != null)
-                         ? xmlNode.Attributes[attributeName].Value
-                         : string.Empty;
+			string value = (xmlNode.Attributes[attributeName] != null)
+							? xmlNode.Attributes[attributeName].Value
+							: string.Empty;
 
-            bool optional;
+			bool optional;
 
-            if (bool.TryParse(value, out optional)) {
-                return optional;
-            } else {
-                return false;
-            }
-        }
+			if (bool.TryParse(value, out optional)) {
+				return optional;
+			} else {
+				return false;
+			}
+		}
 
-        private string GetNodeInnerXml(XmlNode xmlNode, string nodeName, string placeholderNameValue) {
-            Debug.Assert(xmlNode != null, "XmlNode is null.");
-            Debug.Assert(!string.IsNullOrEmpty(nodeName), "Node name is not specified.");
+		private string GetNodeInnerXml(XmlNode xmlNode, string nodeName, string placeholderNameValue) {
+			Debug.Assert(xmlNode != null, "XmlNode is null.");
+			Debug.Assert(!string.IsNullOrEmpty(nodeName), "Node name is not specified.");
 
 			var resultNode = xmlNode.SelectSingleNode(nodeName);
 			if (resultNode == null)
@@ -358,14 +354,14 @@ namespace Saltarelle.JQueryUI.Generator {
 				throw new ArgumentException("Unexpected placeholder " + n.Attributes["name"].Value);
 			}
 
-            return resultNode.InnerXml;
-        }
+			return resultNode.InnerXml;
+		}
 
-        private XmlNodeList GetNodeList(XmlNode xmlNode, string nodeName) {
-            Debug.Assert(xmlNode != null, "XmlNode is null.");
-            Debug.Assert(!string.IsNullOrEmpty(nodeName), "Node name is not specified.");
+		private XmlNodeList GetNodeList(XmlNode xmlNode, string nodeName) {
+			Debug.Assert(xmlNode != null, "XmlNode is null.");
+			Debug.Assert(!string.IsNullOrEmpty(nodeName), "Node name is not specified.");
 
-            return xmlNode.SelectNodes(nodeName);
-        }
-    }
+			return xmlNode.SelectNodes(nodeName);
+		}
+	}
 }

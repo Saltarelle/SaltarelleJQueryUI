@@ -18,30 +18,15 @@
 using System.Collections.Generic;
 
 namespace Saltarelle.JQueryUI.Generator.Model {
-    public class Argument {
-        public string Description { 
-            get; 
-            set; 
-        }
+	public class Argument {
+		public string Description { get; set; }
 
-        public string Name {
-            get;
-            set;
-        }
+		public string Name { get; set; }
 
-        public bool Optional { 
-            get; 
-            set; 
-        }
+		public bool Optional { get; set; }
 
-        public IList<Property> Properties { 
-            get; 
-            set; 
-        }
+		public IList<Property> Properties { get; set; }
 
-        public string Type { 
-            get; 
-            set; 
-        }
-    }
+		public string Type { get; set; }
+	}
 }

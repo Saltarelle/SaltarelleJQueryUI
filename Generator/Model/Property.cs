@@ -16,20 +16,11 @@
 // limitations under the License.
 
 namespace Saltarelle.JQueryUI.Generator.Model {
-    public class Property {
-        public string Name {
-            get;
-            set;
-        }
+	public class Property {
+		public string Name { get; set; }
 
-        public string Type {
-            get;
-            set;
-        }
+		public string Type { get; set; }
 
-        public string Description {
-            get;
-            set;
-        }
-    }
+		public string Description { get; set; }
+	}
 }
