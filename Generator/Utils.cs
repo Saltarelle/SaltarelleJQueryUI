@@ -38,7 +38,6 @@ namespace Saltarelle.JQueryUI.Generator {
             }
 
             using (StreamWriter file = new StreamWriter(Path.Combine(dir.FullName, fileName + ".cs"))) {
-                file.WriteLine(GetFileHeader(fileName + ".cs"));
                 file.WriteLine(content);
             }
         }
@@ -66,22 +65,6 @@ namespace Saltarelle.JQueryUI.Generator {
                        .Replace("]]>", "")
                        .Trim('|')
                        .Trim();
-        }
-
-        /// <summary>
-        /// Gets the file header.
-        /// </summary>
-        /// <param name="fileName">File name.</param>
-        /// <returns>File header.</returns>
-        private static string GetFileHeader(string fileName) {
-            string header =
-@"// {0}
-// Script#/Libraries/jQuery/UI
-// This source code is subject to terms and conditions of the Apache License, Version 2.0.
-//
-";
-
-            return string.Format(header, fileName);
         }
 
         /// <summary>
