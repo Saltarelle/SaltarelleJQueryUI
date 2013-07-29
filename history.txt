@@ -1,3 +1,5 @@
+Updated Saltarelle dependencies
+
 1.9.3
 Fixed event names (thanks to Pete Davis)
 
