@@ -211,7 +211,7 @@ namespace Saltarelle.JQueryUI.Generator {
 					foreach (XmlNode n in (signature.Count == 0 ? new[] { xmlMethod } : signature.Cast<XmlNode>())) {
 						methods.Add(new Method {
 							Name = name,
-							ReturnType = GetAttributeStringValue(n, "return"),
+							ReturnType = GetReturnType(n),
 							Description = GetNodeInnerXml(n, "desc", placeholderNameValue),
 							Arguments = ParseArguments(GetNodeList(n, "argument"))
 						});
@@ -220,6 +220,14 @@ namespace Saltarelle.JQueryUI.Generator {
 			}
 
 			return methods;
+		}
+
+		private string GetReturnType(XmlNode xmlMethod) {
+			var returnNodes = GetNodeList(xmlMethod, "return");
+			if (returnNodes.Count != 0)
+				return string.Join(" or ", returnNodes.OfType<XmlNode>().Select(n => n.Attributes["type"].Value));
+			else
+				return GetAttributeStringValue(xmlMethod, "return");
 		}
 
 		private IList<Argument> ParseArguments(XmlNodeList xmlArguments) {
