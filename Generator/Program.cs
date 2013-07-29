@@ -20,30 +20,27 @@ using System.Collections.Generic;
 using System.IO;
 using Saltarelle.JQueryUI.Generator.Model;
 
-namespace Saltarelle.JQueryUI.Generator
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            // arguments
-            if (string.IsNullOrEmpty(args[0])) {
-                throw new ArgumentException("Source path is not specified.");
-            }
-            if (string.IsNullOrEmpty(args[1])) {
-                throw new ArgumentException("Destination path is not specified.");
-            }
-            
-            string sourcePath = args[0];
-            string destinationPath = args[1];
+namespace Saltarelle.JQueryUI.Generator {
+	class Program {
+		static void Main(string[] args) {
+			// arguments
+			if (string.IsNullOrEmpty(args[0])) {
+				throw new ArgumentException("Source path is not specified.");
+			}
+			if (string.IsNullOrEmpty(args[1])) {
+				throw new ArgumentException("Destination path is not specified.");
+			}
 
-            // parse sources
-            Parser xmlParser = new Parser(sourcePath, Console.Out);
-            IList<Entry> entries = xmlParser.Parse();
-            
-            // generate files
-            Generator generator = new Generator(destinationPath, Console.Out);
-            generator.Render(entries);
-        }
-    }
+			string sourcePath = args[0];
+			string destinationPath = args[1];
+
+			// parse sources
+			Parser xmlParser = new Parser(sourcePath, Console.Out);
+			IList<Entry> entries = xmlParser.Parse();
+
+			// generate files
+			Generator generator = new Generator(destinationPath, Console.Out);
+			generator.Render(entries);
+		}
+	}
 }

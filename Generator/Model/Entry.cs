@@ -18,74 +18,35 @@
 using System.Collections.Generic;
 
 namespace Saltarelle.JQueryUI.Generator.Model {
-    public class Entry {
-        public string[] Categories {
-            get;
-            set;
-        }
+	public class Entry {
+		public string[] Categories { get; set; }
 
-        public string Created {
-            get;
-            set;
-        }
+		public string Created { get; set; }
 
-        public string Description {
-            get;
-            set;
-        }
+		public string Description { get; set; }
 
-        public string EventPrefix {
-            get;
-            set;
-        }
+		public string EventPrefix { get; set; }
 
-        public IList<Event> Events {
-            get;
-            set;
-        }
+		public IList<Event> Events { get; set; }
 
-        public Example Example {
-            get;
-            set;
-        }
+		public Example Example { get;  set; }
 
-        public string LongDescription {
-            get;
-            set;
-        }
+		public string LongDescription { get; set; }
 
-        public IList<Method> Methods {
-            get;
-            set;
-        }
+		public IList<Method> Methods { get; set; }
 
-        public IList<Property> Properties {
-            get;
-            set;
-        }
+		public IList<Property> Properties { get; set; }
 
-        public string Name { 
-            get; 
-            set; 
-        }
+		public string Name { get; set; }
 
-        public IList<Option> Options {
-            get;
-            set;
-        }
+		public IList<Option> Options { get; set; }
 
-        public string Type {
-            get;
-            set;
-        }
+		public string Type { get; set; }
 
-        public IList<Argument> Arguments {
-            get;
-            set;
-        }
+		public IList<Argument> Arguments { get; set; }
 
 		internal Entry Clone() {
 			return (Entry)MemberwiseClone();
 		}
-    }
+	}
 }
