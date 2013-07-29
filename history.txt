@@ -1,3 +1,4 @@
+1.10.1
 Fixed return type of ProgressBar.Value() (#6)
 
 1.10.0
