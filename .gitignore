@@ -4,3 +4,5 @@ obj
 jQuery.UI.v11.suo
 jQuery.UI/jQuery.UI.csproj.user
 jQuery.UI/Properties/Version.cs
+Generator/Generator.csproj.user
+jQuery.UI.sln.DotSettings.user
