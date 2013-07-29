@@ -33,10 +33,9 @@ Task Generate-Source -Depends Determine-Version {
 	Exec { msbuild "$baseDir\Generator.sln" /verbosity:minimal /p:"Configuration=$configuration" }
 	rmdir -Force -Recurse -ErrorAction SilentlyContinue "$baseDir\jQuery.UI\Generated" | Out-Null
 	Exec { & "$baseDir\Generator\bin\Saltarelle.jQueryUI.Generator.exe" "$baseDir\api.jqueryui.com\entries" "$baseDir\jQuery.UI\Generated" | Out-Null }
-	Generate-VersionFile -Path "$baseDir\jQuery.UI\Properties\Version.cs" -Version $script:Version
 }
 
-Task Build-Library -Depends Clean {
+Task Build-Library -Depends Clean, Generate-VersionInfo {
 	Exec { msbuild "$baseDir\jQuery.UI.sln" /verbosity:minimal /p:"Configuration=$configuration" }
 }
 
@@ -77,6 +76,9 @@ Task Build-NuGetPackages -Depends Determine-Version, Build-Library {
 }
 
 Task Build -Depends Build-NuGetPackages {
+}
+
+Task Configure -Depends Generate-VersionInfo {
 }
 
 Function Determine-PathVersion($RefCommit, $RefVersion, $Path) {
@@ -141,4 +143,8 @@ Function Generate-VersionFile($Path, $Version) {
 [assembly: System.Reflection.AssemblyVersion("$($Version.Major).0.0.0")]
 [assembly: System.Reflection.AssemblyFileVersion("$Version")]
 "@ | Out-File $Path -Encoding "UTF8"
+}
+
+Task Generate-VersionInfo -Depends Determine-Version {
+	Generate-VersionFile -Path "$baseDir\jQuery.UI\Properties\Version.cs" -Version $script:Version
 }
