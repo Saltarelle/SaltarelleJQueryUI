@@ -10,7 +10,7 @@ namespace jQueryApi.UI.Widgets {
     public sealed class AutoCompleteOptions {
 
         /// <summary>
-        /// Which element the menu should be appended to. When the value is <code>null</code>, the parents of the input field will be checked for a class of <code>ui-front</code>. If an element with the <code>ui-front</code> class is found, the menu will be appended to that element. Regardless of the value, if no element is found, the menu will be appended to the body.
+        /// <para>Which element the menu should be appended to. When the value is <code>null</code>, the parents of the input field will be checked for a class of <code>ui-front</code>. If an element with the <code>ui-front</code> class is found, the menu will be appended to that element. Regardless of the value, if no element is found, the menu will be appended to the body.</para><div class="warning"><strong>Note:</strong> The <code>appendTo</code> option should not be changed while the suggestions menu is open.</div>
         /// </summary>
         public string AppendTo {
             get; set;

@@ -38,7 +38,7 @@ namespace jQueryApi.UI.Widgets {
         }
 
         /// <summary>
-        /// <para>Configuration for the Position utility. The <code>of</code> property defaults to the target element, but can also be overriden.</para><para><em>Note: In 1.9.0, the default value was <code>{ my: "left+15 center", at: "right center", collision: "flipfit" }</code>, but this was changed to more closely match native tooltip positioning.</em></para>
+        /// <para>Identifies the position of the tooltip in relation to the associated target element. The <code>of</code> option defaults to the target element, but you can specify another element to position against. You can refer to the <a href="/position">jQuery UI Position</a> utility for more details about the various options.</para>
         /// </summary>
         public object Position {
             get; set;

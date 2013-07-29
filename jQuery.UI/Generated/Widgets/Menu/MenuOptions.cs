@@ -17,14 +17,14 @@ namespace jQueryApi.UI.Widgets {
         }
 
         /// <summary>
-        /// Icons to use for submenus, matching an icon defined by the jQuery UI CSS Framework.<ul><li>submenu (string, default: "ui-icon-carat-1-e")</li></ul>
+        /// Icons to use for submenus, matching <a href="/theming/icons/">an icon provided by the jQuery UI CSS Framework</a>.<ul><li>submenu (string, default: "ui-icon-carat-1-e")</li></ul>
         /// </summary>
         public object Icons {
             get; set;
         }
 
         /// <summary>
-        /// Selector for the elements that serve as the menu container, including sub-menus.
+        /// <para>Selector for the elements that serve as the menu container, including sub-menus.</para><div class="warning"><strong>Note:</strong> The <code>menus</code> option should not be changed after initialization. Existing submenus will not be updated.</div>
         /// </summary>
         public string Menus {
             get; set;
@@ -38,7 +38,7 @@ namespace jQueryApi.UI.Widgets {
         }
 
         /// <summary>
-        /// Customize the ARIA roles used for the menu and menu items. The default uses <code>"menuitem"</code> for items. Setting the <code>role</code> option to <code>"listbox"</code> will use <code>"option"</code> for items. If set to <code>null</code>, no roles will be set, which is useful if the menu is being controlled by another element that is maintaining focus.
+        /// <para>Customize the ARIA roles used for the menu and menu items. The default uses <code>"menuitem"</code> for items. Setting the <code>role</code> option to <code>"listbox"</code> will use <code>"option"</code> for items. If set to <code>null</code>, no roles will be set, which is useful if the menu is being controlled by another element that is maintaining focus.</para><div class="warning"><strong>Note:</strong> The <code>role</code> option should not be changed after initialization. Existing (sub)menus and menu items will not be updated.</div>
         /// </summary>
         public string Role {
             get; set;

@@ -10,7 +10,7 @@ namespace jQueryApi.UI.Widgets {
     public sealed class DialogOptions {
 
         /// <summary>
-        /// Which element the dialog should be appended to. Regardless of the value set, the overlay for modal dialogs will always be appended to the body and cover the entire window.
+        /// <para>Which element the dialog (and overlay, if <a href="#option-modal">modal</a>) should be appended to.</para><div class="warning"><strong>Note:</strong> The <code>appendTo</code> option should not be changed while the dialog is open.</div>
         /// </summary>
         public string AppendTo {
             get; set;
@@ -52,7 +52,7 @@ namespace jQueryApi.UI.Widgets {
         }
 
         /// <summary>
-        /// If set to <code>true</code>, the dialog will be draggable by the title bar. Requires the <a href="/draggable/">jQuery UI Draggable wiget</a> to be included.
+        /// If set to <code>true</code>, the dialog will be draggable by the title bar. Requires the <a href="/draggable/">jQuery UI Draggable widget</a> to be included.
         /// </summary>
         public bool Draggable {
             get; set;
@@ -129,7 +129,7 @@ namespace jQueryApi.UI.Widgets {
         }
 
         /// <summary>
-        /// Specifies the title of the dialog. Any valid HTML may be set as the title. The title can also be specified by the <code>title</code> attribute on the dialog source element.
+        /// Specifies the title of the dialog. If the value is <code>null</code>, the <code>title</code> attribute on the dialog source element will be used.
         /// </summary>
         public string Title {
             get; set;

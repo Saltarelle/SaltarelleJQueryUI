@@ -118,6 +118,7 @@ namespace Saltarelle.JQueryUI.Generator {
             entry.Categories = ParseCategories(GetNodeList(xmlEntry, ".//category"));
             entry.Events = ParseEvents(GetNodeList(xmlEntry, ".//events//event"), entry.Name);
             entry.Methods = ParseMethods(GetNodeList(xmlEntry, ".//methods/*"), entry.Name);
+            entry.Properties = ParseProperties(GetNodeList(xmlEntry, ".//signature/property"));
 
 			if (entry.Type == "effect") {
 				entry.Options = new[] { new Option { Name = "easing", Description = "The easing to use for the effect", Type = "string" } }

@@ -9,7 +9,7 @@ namespace jQueryApi.UI.Widgets {
     [Serializable]
     public sealed class DialogResizeStopEvent {
 
-        public object OrginalPosition {
+        public object OriginalPosition {
             get; set;
         }
 

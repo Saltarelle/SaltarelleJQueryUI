@@ -20,6 +20,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using Saltarelle.JQueryUI.Generator.Model;
 
 namespace Saltarelle.JQueryUI.Generator {
@@ -68,8 +69,9 @@ namespace Saltarelle.JQueryUI.Generator {
             RenderSize();
             RenderEffectExtensionMethods(entries.Where(e => e.Type == "effect"));
             RenderInteractionOrWidgetExtensionMethods("Interaction", entries.Where(e => e.Categories.Contains("interactions") && e.Name != "jQuery.ui.mouse"));
-            RenderInteractionOrWidgetExtensionMethods("Widget", entries.Where(e => e.Categories.Contains("widgets") && e.Name != "jQuery.Widget"));
+            RenderInteractionOrWidgetExtensionMethods("Widget", entries.Where(e => e.Categories.Contains("widgets") && e.Name != "jQuery.Widget" && e.Name != "jQuery.widget"));
             RenderExtensionMethods(entries.Where(e => e.Type == "method"));
+            RenderProperties(entries.Where(e => e.Type == "property"));
         }
 
         private void RenderEntry(Entry entry) {
@@ -77,10 +79,10 @@ namespace Saltarelle.JQueryUI.Generator {
                 return;
             }
 
-            if (entry.Name != "position" && entry.Type != "effect" && entry.Type != "method" && entry.Name != "jQuery.Widget") {
+            if (entry.Name != "position" && entry.Type != "effect" && entry.Type != "method" && entry.Type != "property" && entry.Name != "jQuery.Widget") {
                 RenderObject(entry);
             }
-			if ((entry.Type != "method" || (entry.Name != "effect" && entry.Name != "show" && entry.Name != "hide" && entry.Name != "toggle")) && entry.Name != "jQuery.Widget") {
+			if (((entry.Type != "method" && entry.Type != "property") || (entry.Name != "effect" && entry.Name != "show" && entry.Name != "hide" && entry.Name != "toggle")) && entry.Name != "jQuery.Widget") {
 				RenderOptions(entry);
 			}
 			RenderEvents(entry);
@@ -412,6 +414,7 @@ namespace jQueryApi.UI.{0}s {{
 @"using System;
 using System.Html;
 using System.Runtime.CompilerServices;
+using jQueryApi.UI.Effects;
 
 namespace jQueryApi.UI {{
 
@@ -445,6 +448,43 @@ namespace jQueryApi.UI {{
 				Utils.CreateFile(DestinationPath, "jQueryUIExtensions", string.Format(content, methods.ToString()));
 			}
         }
+
+		private void RenderProperties(IEnumerable<Entry> entries) {
+			foreach (var entry in entries) {
+				var parts = entry.Name.Split('.');
+				var nmspace = string.Join(".", parts.Take(parts.Length - 1));
+				var name = parts[parts.Length - 1];
+
+				string content =
+@"using System;
+using System.Html;
+using System.Runtime.CompilerServices;
+using jQueryApi.UI.Effects;
+
+namespace jQueryApi.UI {{
+    [Imported]
+    [ScriptNamespace(""{0}"")]
+    [ScriptName(""{1}"")]
+    public static class {2} {{
+{3}
+    }}
+}}";
+				var properties = new StringBuilder();
+				foreach (var prop in entry.Properties) {
+					if (!string.IsNullOrWhiteSpace(prop.Description)) {
+						properties.AppendLine("        /// <summary>")
+						          .AppendLine("        /// " + Utils.FormatXmlComment(entry.Description.Replace("<entryname />", entry.Name)))
+						          .AppendLine("        /// </summary>");
+					}
+
+					properties.AppendLine(string.Format("        [IntrinsicProperty, ScriptName(\"{0}\")]", prop.Name))
+					          .AppendLine(string.Format("        public static {0} {1} {{ get; set; }}", Utils.MapDataType(prop.Type, null, ""), Utils.PascalCase(prop.Name)))
+					          .AppendLine();
+				}
+
+				Utils.CreateFile(DestinationPath, Utils.PascalCase(name), string.Format(content, nmspace, name, Utils.PascalCase(name), properties));
+			}
+		}
 
         private void RenderEventHandler() {
             string className = "jQueryUIEventHandler";

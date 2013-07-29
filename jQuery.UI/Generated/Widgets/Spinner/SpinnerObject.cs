@@ -8,7 +8,7 @@ namespace jQueryApi.UI.Widgets {
     /// Enhance a text input for entering numeric values, with up/down buttons and arrow key handling.
     /// </summary>
     /// <remarks>
-    /// <para>Spinner, or number stepper, widget is perfect for handling all kinds of numeric input. It allow users to type a value directly or modify an existing value by spinning with the keyboard, mouse or scrollwheel. When combined with Globalize, you can even spin currencies and dates in a variety of locales.</para><para>Spinner wraps a text input, adds two buttons to increment and decrement the current value, along with handling key events for the same purpose. It delegates to <a href="https://github.com/jquery/globalize">Globalize</a> for number formatting and parsing.</para><h3>Keyboard interaction</h3><ul><li>UP: Increment the value by one step.</li><li>DOWN: Decrement the value by one step.</li><li>PAGE UP: Increment the value by one page.</li><li>PAGE DOWN: Decrement the value by one page.</li></ul><para>Focus stays in the text field, even after using the mouse to click one of the spin buttons.</para><h3>Dependencies</h3><ul><li><a href="/category/ui-core/">UI Core</a></li><li><a href="/jQuery.widget/">Widget Factory</a></li><li><a href="/button/">Button</a></li><li><a href="https://github.com/jquery/globalize">Globalize</a> (external, optional; for use with the <a href="#option-culture"><code>culture</code></a> and <a href="#option-numberFormat"><code>numberFormat</code></a> options)</li></ul>
+    /// <para>The Spinner, or number stepper widget, is perfect for handling all kinds of numeric input. It allows users to type a value directly, or modify an existing value by spinning with the keyboard, mouse or scrollwheel. When combined with Globalize, you can even spin currencies and dates in a variety of locales.</para><para>Spinner wraps a text input with two buttons to increment and decrement the current value. Key events are added so that the same incrementing and decrementing can be done with the keyboard. Spinner delegates to <a href="https://github.com/jquery/globalize">Globalize</a> for number formatting and parsing.</para><h3>Keyboard interaction</h3><ul><li>UP: Increment the value by one step.</li><li>DOWN: Decrement the value by one step.</li><li>PAGE UP: Increment the value by one page.</li><li>PAGE DOWN: Decrement the value by one page.</li></ul><para>Focus stays in the text field, even after using the mouse to click one of the spin buttons.</para><div><h3 id="theming">Theming</h3><para>The spinner widget uses the <a href="/theming/css-framework">jQuery UI CSS framework</a> to style its look and feel. If spinner specific styling is needed, the following CSS class names can be used:</para></div><ul><li><code>ui-spinner</code>: The outer container of the spinner.<ul><li><code>ui-spinner-input</code>: The <code>&lt;input&gt;</code> element that the Spinner widget was instantiated with.</li><li><code>ui-spinner-button</code>: The button controls used to increment and decrement the spinner's value. The up button will additionally have a <code>ui-spinner-up</code> class and the down button will additionally have a <code>ui-spinner-down</code> class.</li></ul></li></ul><h3>Dependencies</h3><ul><li><a href="/category/ui-core/">UI Core</a></li><li><a href="/jQuery.widget/">Widget Factory</a></li><li><a href="/button/">Button</a></li><li><a href="https://github.com/jquery/globalize">Globalize</a> (external, optional; for use with the <a href="#option-culture"><code>culture</code></a> and <a href="#option-numberFormat"><code>numberFormat</code></a> options)</li></ul>
     /// </remarks>
     [Imported]
     [IgnoreNamespace]
@@ -76,7 +76,7 @@ namespace jQueryApi.UI.Widgets {
 
 
         /// <summary>
-        /// Decrements the value by the specified number of pages, as defined by the <a href="#option-page"><code>page</code></a> option. Without the parameter, a single page is decremented.
+        /// <para>Decrements the value by the specified number of pages, as defined by the <a href="#option-page"><code>page</code></a> option. Without the parameter, a single page is decremented.</para><para>If the resulting value is above the max, below the min, or results in a step mismatch, the value will be adjusted to the closest valid value.</para><para>Invoking <code>pageDown()</code> will cause <a href="#event-start"><code>start</code></a>, <a href="#event-spin"><code>spin</code></a>, and <a href="#event-stop"><code>stop</code></a> events to be triggered.</para>
         /// </summary>
         [InlineCode("{this}.spinner('pageDown', {pages})")]
         public void PageDown(int pages) {
@@ -84,7 +84,7 @@ namespace jQueryApi.UI.Widgets {
 
 
         /// <summary>
-        /// Increments the value by the specified number of pages, as defined by the <a href="#option-page"><code>page</code></a> option. Without the parameter, a single page is incremented.
+        /// <para>Increments the value by the specified number of pages, as defined by the <a href="#option-page"><code>page</code></a> option. Without the parameter, a single page is incremented.</para><para>If the resulting value is above the max, below the min, or results in a step mismatch, the value will be adjusted to the closest valid value.</para><para>Invoking <code>pageUp()</code> will cause <a href="#event-start"><code>start</code></a>, <a href="#event-spin"><code>spin</code></a>, and <a href="#event-stop"><code>stop</code></a> events to be triggered.</para>
         /// </summary>
         [InlineCode("{this}.spinner('pageUp', {pages})")]
         public void PageUp(int pages) {
@@ -92,7 +92,7 @@ namespace jQueryApi.UI.Widgets {
 
 
         /// <summary>
-        /// Decrements the value by the specified number of steps. Without the parameter, a single step is decremented.<para>If the resulting value is above the max, below the min, or reuslts in a step mismatch, the value will be adjusted to the closest valid value.</para>
+        /// <para>Decrements the value by the specified number of steps. Without the parameter, a single step is decremented.</para><para>If the resulting value is above the max, below the min, or results in a step mismatch, the value will be adjusted to the closest valid value.</para><para>Invoking <code>stepDown()</code> will cause <a href="#event-start"><code>start</code></a>, <a href="#event-spin"><code>spin</code></a>, and <a href="#event-stop"><code>stop</code></a> events to be triggered.</para>
         /// </summary>
         [InlineCode("{this}.spinner('stepDown', {steps})")]
         public void StepDown(int steps) {
@@ -100,7 +100,7 @@ namespace jQueryApi.UI.Widgets {
 
 
         /// <summary>
-        /// Increments the value by the specified number of steps. Without the parameter, a single step is incremented.<para>If the resulting value is above the max, below the min, or reuslts in a step mismatch, the value will be adjusted to the closest valid value.</para>
+        /// <para>Increments the value by the specified number of steps. Without the parameter, a single step is incremented.</para><para>If the resulting value is above the max, below the min, or results in a step mismatch, the value will be adjusted to the closest valid value.</para><para>Invoking <code>stepUp()</code> will cause <a href="#event-start"><code>start</code></a>, <a href="#event-spin"><code>spin</code></a>, and <a href="#event-stop"><code>stop</code></a> events to be triggered.</para>
         /// </summary>
         [InlineCode("{this}.spinner('stepUp', {steps})")]
         public void StepUp(int steps) {
@@ -156,7 +156,7 @@ namespace jQueryApi.UI.Widgets {
 
 
         /// <summary>
-        /// Icons to use for buttons, matching an icon defined by the jQuery UI CSS Framework.<ul><li>up (string, default: "ui-icon-triangle-1-n")</li><li>down (string, default: "ui-icon-triangle-1-s")</li></ul>
+        /// Icons to use for buttons, matching <a href="/theming/icons/">an icon provided by the jQuery UI CSS Framework</a>.<ul><li>up (string, default: "ui-icon-triangle-1-n")</li><li>down (string, default: "ui-icon-triangle-1-s")</li></ul>
         /// </summary>
         public object Icons {
             [InlineCode("{this}.spinner('option', 'icons')")]

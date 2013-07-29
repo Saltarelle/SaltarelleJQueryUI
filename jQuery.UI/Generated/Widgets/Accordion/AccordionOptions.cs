@@ -38,14 +38,14 @@ namespace jQueryApi.UI.Widgets {
         }
 
         /// <summary>
-        /// The event that accordion headers will react to in order to activate the associated panel. Multiple events can be specificed, separated by a space.
+        /// The event that accordion headers will react to in order to activate the associated panel. Multiple events can be specified, separated by a space.
         /// </summary>
         public string Event {
             get; set;
         }
 
         /// <summary>
-        /// <para>Selector for the header element, applied via <code>.find()</code> on the main accordion element. Content panels must be the sibling immedately after their associated headers.</para>
+        /// <para>Selector for the header element, applied via <code>.find()</code> on the main accordion element. Content panels must be the sibling immediately after their associated headers.</para>
         /// </summary>
         public string Header {
             get; set;
@@ -59,7 +59,7 @@ namespace jQueryApi.UI.Widgets {
         }
 
         /// <summary>
-        /// <para>Icons to use for headers, matching an icon defined by the jQuery UI CSS Framework. Set to <code>false</code> to have no icons displayed.</para><ul><li>header (string, default: "ui-icon-triangle-1-e")</li><li>activeHeader (string, default: "ui-icon-triangle-1-s")</li></ul>
+        /// <para>Icons to use for headers, matching <a href="/theming/icons/">an icon provided by the jQuery UI CSS Framework</a>. Set to <code>false</code> to have no icons displayed.</para><ul><li>header (string, default: "ui-icon-triangle-1-e")</li><li>activeHeader (string, default: "ui-icon-triangle-1-s")</li></ul>
         /// </summary>
         public object Icons {
             get; set;

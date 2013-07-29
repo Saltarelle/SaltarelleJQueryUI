@@ -8,7 +8,7 @@ namespace jQueryApi.UI.Widgets {
     /// Open content in an interactive overlay.
     /// </summary>
     /// <remarks>
-    /// <para>A dialog is a floating window that contains a title bar and a content area. The dialog window can be moved, resized and closed with the 'x' icon by default.</para><para>If the content length exceeds the maximum height, a scrollbar will automatically appear.</para><para>A bottom button bar and semi-transparent modal overlay layer are common options that can be added.</para><h3>Dependencies</h3><ul><li><a href="/category/ui-core/">UI Core</a></li><li><a href="/jQuery.widget/">Widget Factory</a></li><li><a href="/position/">Position</a></li><li><a href="/button/">Button</a></li><li><a href="/draggable/">Draggable</a> (optional; for use with the <a href="#option-draggable"><code>draggable</code></a> option)</li><li><a href="/resizable/">Resizable</a> (optional; for use with the <a href="#option-resizable"><code>resizable</code></a> option)</li><li><a href="/category/effects-core/">Effects Core</a> (optional; for use with the <a href="#option-show"><code>show</code></a> and <a href="#option-hide"><code>hide</code></a> options)</li></ul>
+    /// <para>A dialog is a floating window that contains a title bar and a content area. The dialog window can be moved, resized and closed with the 'x' icon by default.</para><para>If the content length exceeds the maximum height, a scrollbar will automatically appear.</para><para>A bottom button bar and semi-transparent modal overlay layer are common options that can be added.</para><h3>Focus</h3><para>Upon opening a dialog, focus is automatically moved to the first item that matches the following:</para><ol><li>The first element within the dialog with the <code>autofocus</code> attribute</li><li>The first <a href="/tabbable-selector/"><code>:tabbable</code></a> element within the dialog's content</li><li>The first <a href="/tabbable-selector/"><code>:tabbable</code></a> element within the dialog's buttonpane</li><li>The dialog's close button</li><li>The dialog itself</li></ol><para>While open, the dialog widget ensures that tabbing cycles focus between elements within the dialog itself, not elements outside of it. Modal dialogs additionally prevent mouse users from clicking on elements outside of the dialog.</para><para>Upon closing a dialog, focus is automatically returned to the element that had focus when the dialog was opened.</para><h3>Hiding the close button</h3><para>In some cases, you may want to hide the close button, for instance, if you have a close button in the button pane. The best way to accomplish this is via CSS. As an example, you can define a simple rule, such as:</para><c><code>.no-close .ui-dialog-titlebar-close {display: none;}</code></c><para>Then, you can simply add the <code>no-close</code> class to any dialog in order to hide its close button:</para><c><code>$( "#dialog" ).dialog({dialogClass: "no-close",buttons: [{text: "OK",click: function() {$( this ).dialog( "close" );}}]});</code></c><div><h3 id="theming">Theming</h3><para>The dialog widget uses the <a href="/theming/css-framework">jQuery UI CSS framework</a> to style its look and feel. If dialog specific styling is needed, the following CSS class names can be used:</para></div><ul><li><code>ui-dialog</code>: The outer container of the dialog.<ul><li><code>ui-dialog-titlebar</code>: The title bar containing the dialog's title and close button.<ul><li><code>ui-dialog-title</code>: The container around the textual title of the dialog.</li><li><code>ui-dialog-titlebar-close</code>: The dialog's close button.</li></ul></li><li><code>ui-dialog-content</code>: The container around the dialog's content. This is also the element the widget was instantiated with.</li><li><code>ui-dialog-buttonpane</code>: The pane that contains the dialog's buttons. This will only be present if the <a href="#option-buttons"><code>buttons</code></a> option is set.<ul><li><code>ui-dialog-buttonset</code>: The container around the buttons themselves.</li></ul></li></ul></li></ul><para>Additionally, when the <a href="#option-modal"><code>modal</code></a> option is set, an element with a <code>ui-widget-overlay</code> class name is appended to the <code>&lt;body&gt;</code>.</para><h3>Dependencies</h3><ul><li><a href="/category/ui-core/">UI Core</a></li><li><a href="/jQuery.widget/">Widget Factory</a></li><li><a href="/position/">Position</a></li><li><a href="/button/">Button</a></li><li><a href="/draggable/">Draggable</a> (optional; for use with the <a href="#option-draggable"><code>draggable</code></a> option)</li><li><a href="/resizable/">Resizable</a> (optional; for use with the <a href="#option-resizable"><code>resizable</code></a> option)</li><li><a href="/category/effects-core/">Effects Core</a> (optional; for use with the <a href="#option-show"><code>show</code></a> and <a href="#option-hide"><code>hide</code></a> options)</li></ul>
     /// </remarks>
     [Imported]
     [IgnoreNamespace]
@@ -102,7 +102,7 @@ namespace jQueryApi.UI.Widgets {
 
 
         /// <summary>
-        /// Which element the dialog should be appended to. Regardless of the value set, the overlay for modal dialogs will always be appended to the body and cover the entire window.
+        /// <para>Which element the dialog (and overlay, if <a href="#option-modal">modal</a>) should be appended to.</para><div class="warning"><strong>Note:</strong> The <code>appendTo</code> option should not be changed while the dialog is open.</div>
         /// </summary>
         public string AppendTo {
             [InlineCode("{this}.dialog('option', 'appendTo')")]
@@ -168,7 +168,7 @@ namespace jQueryApi.UI.Widgets {
 
 
         /// <summary>
-        /// If set to <code>true</code>, the dialog will be draggable by the title bar. Requires the <a href="/draggable/">jQuery UI Draggable wiget</a> to be included.
+        /// If set to <code>true</code>, the dialog will be draggable by the title bar. Requires the <a href="/draggable/">jQuery UI Draggable widget</a> to be included.
         /// </summary>
         public bool Draggable {
             [InlineCode("{this}.dialog('option', 'draggable')")]
@@ -289,7 +289,7 @@ namespace jQueryApi.UI.Widgets {
 
 
         /// <summary>
-        /// Specifies the title of the dialog. Any valid HTML may be set as the title. The title can also be specified by the <code>title</code> attribute on the dialog source element.
+        /// Specifies the title of the dialog. If the value is <code>null</code>, the <code>title</code> attribute on the dialog source element will be used.
         /// </summary>
         public string Title {
             [InlineCode("{this}.dialog('option', 'title')")]

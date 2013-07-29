@@ -17,7 +17,7 @@ namespace jQueryApi.UI.Widgets {
         }
 
         /// <summary>
-        /// The <a href="#option-dateFormat"><code>dateFormat</code></a> to be used for the <a href="#option-altField"><code>altField</code></a> option. This allows one date format to be shown to the user for selection purposes, while a different format is actually sent behind the scenes. For a full list of the possible formats see the [[UI/Datepicker/formatDate|formatDate]] function
+        /// The <a href="#option-dateFormat"><code>dateFormat</code></a> to be used for the <a href="#option-altField"><code>altField</code></a> option. This allows one date format to be shown to the user for selection purposes, while a different format is actually sent behind the scenes. For a full list of the possible formats see the <a href="#utility-formatDate"><code>formatDate</code></a> function
         /// </summary>
         public string AltFormat {
             get; set;
@@ -45,21 +45,21 @@ namespace jQueryApi.UI.Widgets {
         }
 
         /// <summary>
-        /// A function takes a date as a parameter and must return an array with <code>[0]</code> equal to <code>true</code>/<code>false</code> indicating whether or not this date is selectable, <code>[1]</code> equal to a CSS class name or <code>""</code> for the default presentation, and <code>[2]</code> an optional popup tooltip for this date. It is called for each day in the datepicker before it is displayed.
+        /// A function that takes a date as a parameter and must return an array with:<ul><li><code>[0]</code>: <code>true</code>/<code>false</code> indicating whether or not this date is selectable</li><li><code>[1]</code>: a CSS class name to add to the date's cell or <code>""</code> for the default presentation</li><li><code>[2]</code>: an optional popup tooltip for this date</li></ul>The function is called for each day in the datepicker before it is displayed.
         /// </summary>
         public Delegate BeforeShowDay {
             get; set;
         }
 
         /// <summary>
-        /// The URL for the popup button image. If set, the <a href="#option-buttonText"><code>buttonText</code></a> option becomes the <code>alt</code> value and is not directly displayed.
+        /// A URL of an image to use to display the datepicker when the <a href="#option-showOn"><code>showOn</code></a> option is set to <code>"button"</code> or <code>"both"</code>. If set, the <a href="#option-buttonText"><code>buttonText</code></a> option becomes the <code>alt</code> value and is not directly displayed.
         /// </summary>
         public string ButtonImage {
             get; set;
         }
 
         /// <summary>
-        /// Whether the button image should be rendered by itself instead of inside a button element.
+        /// Whether the button image should be rendered by itself instead of inside a button element. This option is only relevant if the <a href="#option-buttonImage"><code>buttonImage</code></a> option has also been set.
         /// </summary>
         public bool ButtonImageOnly {
             get; set;
@@ -115,7 +115,7 @@ namespace jQueryApi.UI.Widgets {
         }
 
         /// <summary>
-        /// The format for parsed and displayed dates. For a full list of the possible formats see the <code>[[UI/Datepicker/formatDate|formatDate]]</code> function.
+        /// The format for parsed and displayed dates. For a full list of the possible formats see the <code><a href="#utility-formatDate"><code>formatDate</code></a></code> function.
         /// </summary>
         public string DateFormat {
             get; set;
@@ -143,7 +143,7 @@ namespace jQueryApi.UI.Widgets {
         }
 
         /// <summary>
-        /// Set the date to highlight on first opening if the field is blank. Specify either an actual date via a Date object or as a string in the current <code>[[UI/Datepicker#option-dateFormat|dateFormat]]</code>, or a number of days from today (e.g. +7) or a string of values and periods ('y' for years, 'm' for months, 'w' for weeks, 'd' for days, e.g. '+1m +7d'), or null for today.
+        /// Set the date to highlight on first opening if the field is blank. Specify either an actual date via a Date object or as a string in the current <a href="#option-dateFormat"><code>dateFormat</code></a>, or a number of days from today (e.g. +7) or a string of values and periods ('y' for years, 'm' for months, 'w' for weeks, 'd' for days, e.g. '+1m +7d'), or null for today.
         /// </summary>
         public TypeOption<int, JsDate, string> DefaultDate {
             get; set;
@@ -213,7 +213,7 @@ namespace jQueryApi.UI.Widgets {
         }
 
         /// <summary>
-        /// Whether the <a href="#option-prevText"><code>prevText</code></a> and <a href="#option-nextText"><code>nextText</code></a> options should be parsed as dates by the <code>[[UI/Datepicker/formatDate|formatDate]]</code> function, allowing them to display the target month names for example.
+        /// Whether the <a href="#option-prevText"><code>prevText</code></a> and <a href="#option-nextText"><code>nextText</code></a> options should be parsed as dates by the <code><a href="#utility-formatDate"><code>formatDate</code></a></code> function, allowing them to display the target month names for example.
         /// </summary>
         public bool NavigationAsDateFormat {
             get; set;
@@ -269,7 +269,7 @@ namespace jQueryApi.UI.Widgets {
         }
 
         /// <summary>
-        /// The cutoff year for determining the century for a date (used in conjunction with <code>[[UI/Datepicker#option-dateFormat|dateFormat]]</code> 'y'). Any dates entered with a year value less than or equal to the cutoff year are considered to be in the current century, while those greater than it are deemed to be in the previous century.
+        /// The cutoff year for determining the century for a date (used in conjunction with <a href="#option-dateFormat"><code>dateFormat</code></a> 'y'). Any dates entered with a year value less than or equal to the cutoff year are considered to be in the current century, while those greater than it are deemed to be in the previous century.
         /// </summary>
         public TypeOption<int, string> ShortYearCutoff {
             get; set;
@@ -283,7 +283,7 @@ namespace jQueryApi.UI.Widgets {
         }
 
         /// <summary>
-        /// Whether to show the button panel.
+        /// Whether to display a button pane underneath the calendar. The button pane contains two buttons, a Today button that links to the current day, and a Done button that closes the datepicker. The buttons' text can be customized using the <a href="#option-currentText"><code>currentText</code></a> and <a href="#option-closeText"><code>closeText</code></a> options respectively.
         /// </summary>
         public bool ShowButtonPanel {
             get; set;

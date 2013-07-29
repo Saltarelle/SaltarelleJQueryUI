@@ -10,7 +10,7 @@ namespace jQueryApi.UI {
     public sealed class PositionOptions {
 
         /// <summary>
-        /// Defines which position <strong>on the target element</strong> to align the positioned element against: "horizontal vertical" alignment. See the <a href="#option-my"><code>my</code></a> option for full details on possible values. Perecentage offsets are relative to the target element.
+        /// Defines which position <strong>on the target element</strong> to align the positioned element against: "horizontal vertical" alignment. See the <a href="#option-my"><code>my</code></a> option for full details on possible values. Percentage offsets are relative to the target element.
         /// </summary>
         public string At {
             get; set;

@@ -17,7 +17,7 @@ namespace jQueryApi.UI.Widgets {
         }
 
         /// <summary>
-        /// Icons to display, with or without text (see <a href="#option-text"><code>text</code></a> option). By default, the primary icon is displayed on the left of the label text and the secondary is displayed on the right. The positioning can be controlled via CSS. The value for the <code>primary</code> and <code>secondary</code> properties must be a class name, e.g., <code>"ui-icon-gear"</code>. For using only one icon: <code>icons: { primary: "ui-icon-locked" }</code>. For using two icons: <code>icons: { primary: "ui-icon-gear", secondary: "ui-icon-triangle-1-s" }</code>.
+        /// <para>Icons to display, with or without text (see <a href="#option-text"><code>text</code></a> option). By default, the primary icon is displayed on the left of the label text and the secondary is displayed on the right. The positioning can be controlled via CSS.</para><para>The value for the <code>primary</code> and <code>secondary</code> properties must match <a href="/theming/icons/">an icon class name</a>, e.g., <code>"ui-icon-gear"</code>. For using only one icon: <code>icons: { primary: "ui-icon-locked" }</code>. For using two icons: <code>icons: { primary: "ui-icon-gear", secondary: "ui-icon-triangle-1-s" }</code>.</para>
         /// </summary>
         public object Icons {
             get; set;

@@ -47,10 +47,6 @@
     <Compile Include="Properties\Version.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="jquery-ui-1.9.2.js" />
-    <Content Include="jquery-ui-1.9.2.min.js" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -17,7 +17,7 @@ namespace jQueryApi.UI.Effects {
         }
 
         /// <summary>
-        /// The distance of the effect. Defaults to either the height or width of the elemenet depending on the <code>direction</code> argument. Can be set to any integer less than the width/height of the element.
+        /// The distance of the effect. Defaults to either the height or width of the element depending on the <code>direction</code> argument. Can be set to any integer less than the width/height of the element.
         /// </summary>
         public int Distance {
             get; set;

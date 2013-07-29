@@ -10,7 +10,7 @@ namespace jQueryApi.UI.Effects {
     public sealed class ShakeOptions {
 
         /// <summary>
-        /// The direction of the effect. Possible values: <code>"left"</code>, <code>"right"</code>, <code>"up"</code>, <code>"down"</code>.
+        /// A value of <code>"left"</code> or <code>"right"</code> will shake the element horizontally, and a value of <code>"up"</code> or <code>"down"</code> will shake the element vertically. The value specifies which direction the element should move along the axis for the first step of the effect.
         /// </summary>
         public string Direction {
             get; set;

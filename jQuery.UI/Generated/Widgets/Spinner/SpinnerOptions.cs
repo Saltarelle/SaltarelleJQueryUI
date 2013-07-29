@@ -24,7 +24,7 @@ namespace jQueryApi.UI.Widgets {
         }
 
         /// <summary>
-        /// Icons to use for buttons, matching an icon defined by the jQuery UI CSS Framework.<ul><li>up (string, default: "ui-icon-triangle-1-n")</li><li>down (string, default: "ui-icon-triangle-1-s")</li></ul>
+        /// Icons to use for buttons, matching <a href="/theming/icons/">an icon provided by the jQuery UI CSS Framework</a>.<ul><li>up (string, default: "ui-icon-triangle-1-n")</li><li>down (string, default: "ui-icon-triangle-1-s")</li></ul>
         /// </summary>
         public object Icons {
             get; set;

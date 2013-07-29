@@ -8,7 +8,7 @@ namespace jQueryApi.UI.Widgets {
     /// Convert a pair of headers and content panels into an accordion.
     /// </summary>
     /// <remarks>
-    /// <para>The markup of your accordion container needs pairs of headers and content panels:</para><c><code data-linenum="true"><div id="accordion"><h3>First header</h3><div>First content panel</div><h3>Second header</h3><div>Second content panel</div></div></code></c><para>Accordions support arbitrary markup, but each content panel must always be the next sibling after its associated header. See the <a href="#option-header"><code>header</code></a> option for information on how to use custom markup structures.</para><para>The panels can be activated programmatically by setting the <a href="#option-active"><code>active</code></a> option.</para><h3>Keyboard interaction</h3><para>When focus is on a header, the following key commands are available:</para><ul><li>UP/LEFT - Move focus to the previous header. If on first header, moves focus to last header.</li><li>DOWN/RIGHT - Move focus to the next header. If on last header, moves focus to first header.</li><li>HOME - Move focus to the first header.</li><li>END - Move focus to the last header.</li><li>SPACE/ENTER - Activate panel associated with focused header.</li></ul><para>When focus is in a panel:</para><ul><li>CTRL+UP: Move focus to associated header.</li></ul><h3>Dependencies</h3><ul><li><a href="/category/ui-core/">UI Core</a></li><li><a href="/jQuery.widget/">Widget Factory</a></li><li><a href="/category/effects-core/">Effects Core</a> (optional; for use with the <a href="#option-animate"><code>animate</code></a> option)</li></ul>
+    /// <para>The markup of your accordion container needs pairs of headers and content panels:</para><c><code data-linenum="true"><div id="accordion"><h3>First header</h3><div>First content panel</div><h3>Second header</h3><div>Second content panel</div></div></code></c><para>Accordions support arbitrary markup, but each content panel must always be the next sibling after its associated header. See the <a href="#option-header"><code>header</code></a> option for information on how to use custom markup structures.</para><para>The panels can be activated programmatically by setting the <a href="#option-active"><code>active</code></a> option.</para><h3>Keyboard interaction</h3><para>When focus is on a header, the following key commands are available:</para><ul><li>UP/LEFT - Move focus to the previous header. If on first header, moves focus to last header.</li><li>DOWN/RIGHT - Move focus to the next header. If on last header, moves focus to first header.</li><li>HOME - Move focus to the first header.</li><li>END - Move focus to the last header.</li><li>SPACE/ENTER - Activate panel associated with focused header.</li></ul><para>When focus is in a panel:</para><ul><li>CTRL+UP: Move focus to associated header.</li></ul><div><h3 id="theming">Theming</h3><para>The accordion widget uses the <a href="/theming/css-framework">jQuery UI CSS framework</a> to style its look and feel. If accordion specific styling is needed, the following CSS class names can be used:</para></div><ul><li><code>ui-accordion</code>: The outer container of the accordion.<ul><li><code>ui-accordion-header</code>: The headers of the accordion. The headers will additionally have a <code>ui-accordion-icons</code> class if they contain <a href="#option-icons"><code>icons</code></a>.</li><li><code>ui-accordion-content</code>: The content panels the accordion.</li></ul></li></ul><h3>Dependencies</h3><ul><li><a href="/category/ui-core/">UI Core</a></li><li><a href="/jQuery.widget/">Widget Factory</a></li><li><a href="/category/effects-core/">Effects Core</a> (optional; for use with the <a href="#option-animate"><code>animate</code></a> option)</li></ul>
     /// </remarks>
     [Imported]
     [IgnoreNamespace]
@@ -137,7 +137,7 @@ namespace jQueryApi.UI.Widgets {
 
 
         /// <summary>
-        /// The event that accordion headers will react to in order to activate the associated panel. Multiple events can be specificed, separated by a space.
+        /// The event that accordion headers will react to in order to activate the associated panel. Multiple events can be specified, separated by a space.
         /// </summary>
         public string Event {
             [InlineCode("{this}.accordion('option', 'event')")]
@@ -148,7 +148,7 @@ namespace jQueryApi.UI.Widgets {
 
 
         /// <summary>
-        /// <para>Selector for the header element, applied via <code>.find()</code> on the main accordion element. Content panels must be the sibling immedately after their associated headers.</para>
+        /// <para>Selector for the header element, applied via <code>.find()</code> on the main accordion element. Content panels must be the sibling immediately after their associated headers.</para>
         /// </summary>
         public string Header {
             [InlineCode("{this}.accordion('option', 'header')")]
@@ -170,7 +170,7 @@ namespace jQueryApi.UI.Widgets {
 
 
         /// <summary>
-        /// <para>Icons to use for headers, matching an icon defined by the jQuery UI CSS Framework. Set to <code>false</code> to have no icons displayed.</para><ul><li>header (string, default: "ui-icon-triangle-1-e")</li><li>activeHeader (string, default: "ui-icon-triangle-1-s")</li></ul>
+        /// <para>Icons to use for headers, matching <a href="/theming/icons/">an icon provided by the jQuery UI CSS Framework</a>. Set to <code>false</code> to have no icons displayed.</para><ul><li>header (string, default: "ui-icon-triangle-1-e")</li><li>activeHeader (string, default: "ui-icon-triangle-1-s")</li></ul>
         /// </summary>
         public object Icons {
             [InlineCode("{this}.accordion('option', 'icons')")]

@@ -25,6 +25,10 @@ namespace jQueryApi.UI.Interactions {
             get; set;
         }
 
+        public jQueryObject Placeholder {
+            get; set;
+        }
+
         public jQueryPosition Position {
             get; set;
         }

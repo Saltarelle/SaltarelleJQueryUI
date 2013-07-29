@@ -94,7 +94,7 @@ namespace jQueryApi.UI.Interactions {
         }
 
         /// <summary>
-        /// If specified, restricts dragging from starting unless the mousedown occurs on the specified element(s).
+        /// If specified, restricts dragging from starting unless the mousedown occurs on the specified element(s). Only elements that descend from the draggable element are permitted.
         /// </summary>
         public TypeOption<Element, string> Handle {
             get; set;

@@ -59,6 +59,11 @@ namespace Saltarelle.JQueryUI.Generator.Model {
             set;
         }
 
+        public IList<Property> Properties {
+            get;
+            set;
+        }
+
         public string Name { 
             get; 
             set; 

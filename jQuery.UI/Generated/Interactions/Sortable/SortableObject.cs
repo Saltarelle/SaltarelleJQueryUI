@@ -171,7 +171,7 @@ namespace jQueryApi.UI.Interactions {
 
 
         /// <summary>
-        /// <para>Defines a bounding box that the sortable items are contrained to while dragging.</para><para>Note: The element specified for containment must have a calculated width and height (though it need not be explicit). For example, if you have <code>float: left</code> sortable children and specify <code>containment: "parent"</code> be sure to have <code>float: left</code> on the sortable/parent container as well or it will have <code>height: 0</code>, causing undefined behavior.</para>
+        /// <para>Defines a bounding box that the sortable items are constrained to while dragging.</para><para>Note: The element specified for containment must have a calculated width and height (though it need not be explicit). For example, if you have <code>float: left</code> sortable children and specify <code>containment: "parent"</code> be sure to have <code>float: left</code> on the sortable/parent container as well or it will have <code>height: 0</code>, causing undefined behavior.</para>
         /// </summary>
         public TypeOption<Element, string> Containment {
             [InlineCode("{this}.sortable('option', 'containment')")]
@@ -467,7 +467,7 @@ namespace jQueryApi.UI.Interactions {
 
 
         /// <summary>
-        /// This event is triggered when a sortable item is moved away from a connected list.
+        /// <para>This event is triggered when a sortable item is moved away from a sortable list.</para><para><em>Note: This event is also triggered when a sortable item is dropped.</em></para>
         /// </summary>
         public event jQueryUIEventHandler<SortableOutEvent> OnOut {
             [InlineCode("{this}.bind('sortout', {value})")]
@@ -480,7 +480,7 @@ namespace jQueryApi.UI.Interactions {
 
 
         /// <summary>
-        /// This event is triggered when a sortable item is moved into a connected list.
+        /// This event is triggered when a sortable item is moved into a sortable list.
         /// </summary>
         public event jQueryUIEventHandler<SortableOverEvent> OnOver {
             [InlineCode("{this}.bind('sortover', {value})")]

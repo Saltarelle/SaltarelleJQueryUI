@@ -49,7 +49,7 @@ namespace jQueryApi.UI.Widgets {
 
 
         /// <summary>
-        /// Themable buttons and button sets.
+        /// Themeable buttons and button sets.
         /// </summary>
         [InstanceMethodOnFirstArgument]
         [ScriptName("button")]
@@ -59,7 +59,7 @@ namespace jQueryApi.UI.Widgets {
 
 
         /// <summary>
-        /// Themable buttons and button sets.
+        /// Themeable buttons and button sets.
         /// </summary>
         [InstanceMethodOnFirstArgument]
         [ScriptName("button")]
