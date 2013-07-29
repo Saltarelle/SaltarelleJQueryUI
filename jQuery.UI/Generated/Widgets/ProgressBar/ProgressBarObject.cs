@@ -79,7 +79,8 @@ namespace jQueryApi.UI.Widgets {
         /// Gets the current value of the progressbar.
         /// </summary>
         [InlineCode("{this}.progressbar('value')")]
-        public void Value() {
+        public TypeOption<bool, int> Value() {
+                return null;
         }
 
 
