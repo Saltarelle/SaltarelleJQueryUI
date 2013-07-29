@@ -1,3 +1,4 @@
+1.10.0
 Updated jQueryUI to 1.10.3
 Use assembly version x.0.0.0 in order to get less dependency versioning problems.
 Updated Saltarelle dependencies
